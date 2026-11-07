@@ -1,4 +1,4 @@
-# typedenv
+# envread
 
 Typed reader for environment variables with mypy-inferred return types, settings
 dataclasses, `.env` files and a checker CLI. Zero dependencies.
@@ -6,13 +6,13 @@ dataclasses, `.env` files and a checker CLI. Zero dependencies.
 ## Install
 
 ```
-pip install typedenv
+pip install envread
 ```
 
 ## Read one variable
 
 ```python
-from typedenv import env
+from envread import env
 
 database_url = env.str("DATABASE_URL")  # str, raises MissingEnvError if unset
 port = env.int("PORT", 8080)  # int, the default when unset
@@ -57,7 +57,7 @@ from dataclasses import dataclass, field
 from datetime import timedelta
 from typing import Literal
 
-from typedenv import Env, Secret, load, var
+from envread import Env, Secret, load, var
 
 
 @dataclass(frozen=True)
@@ -93,7 +93,7 @@ EnvValidationError: 3 environment variables failed validation:
 ```
 
 The individual errors are in `error.errors`. If you lint with ruff, add
-`extend-immutable-calls = ["typedenv.var"]` under `[tool.ruff.lint.flake8-bugbear]`
+`extend-immutable-calls = ["envread.var"]` under `[tool.ruff.lint.flake8-bugbear]`
 so `var()` is treated like `field()`.
 
 ## Secrets
@@ -130,7 +130,7 @@ cfg = Env({"PORT": "9090"})  # any mapping instead of os.environ
 ## `.env` files
 
 ```python
-from typedenv import load_dotenv, parse_dotenv, read_dotenv
+from envread import load_dotenv, parse_dotenv, read_dotenv
 
 load_dotenv(".env")  # set what is not already set; returns what it set
 load_dotenv(".env", override=True)  # the file wins
@@ -166,12 +166,12 @@ compose-only behaviours read differently there.
 ## Command line
 
 ```
-typedenv check env.spec                     validate every variable in a spec file
-typedenv check myapp.settings:Settings      validate the fields of a dataclass
-typedenv check env.spec --env-file .env     layer a .env file under the environment
-typedenv check env.spec --format json       machine-readable report
-typedenv get PORT --type int --default 8080 print one parsed value
-typedenv get DEBUG --type bool              prints true or false
+envread check env.spec                     validate every variable in a spec file
+envread check myapp.settings:Settings      validate the fields of a dataclass
+envread check env.spec --env-file .env     layer a .env file under the environment
+envread check env.spec --format json       machine-readable report
+envread get PORT --type int --default 8080 print one parsed value
+envread get DEBUG --type bool              prints true or false
 ```
 
 A spec file lists one variable per line as `NAME TYPE [optional] [secret]`, with types
@@ -187,19 +187,19 @@ HOSTS         list:;
 ```
 
 ```
-$ typedenv check env.spec
+$ envread check env.spec
 ok       DATABASE_URL  secret
 invalid  PORT          int, optional: not a valid integer: 'eighty'
 missing  LOG_LEVEL     choice: not set
 ok       HOSTS         list
-typedenv: 2 of 4 variables failed
+envread: 2 of 4 variables failed
 ```
 
 `check` exits 0 when every variable is valid and 1 otherwise, so it gates a deploy
 script directly. Values are printed only with `--show-values`, and secrets never are.
 `--prefix`, `--env-file` and `--empty-is-unset` work on both commands; `--quiet` gives
-an exit code only. Errors go to stderr with exit code 1. `python -m typedenv` works the same
-as the `typedenv` script.
+an exit code only. Errors go to stderr with exit code 1. `python -m envread` works the same
+as the `envread` script.
 
 ## Errors
 
@@ -215,7 +215,7 @@ one of those or pull in dependencies: `environs` needs `marshmallow` and
 `python-dotenv`, `environ-config` is built on `attrs`, `pydantic-settings` pulls in
 `pydantic-core`, and `typenv` depends on `python-dotenv` and has not shipped since 2021.
 
-`typedenv` has no runtime dependencies, ships `py.typed`, and uses `@overload` so
+`envread` has no runtime dependencies, ships `py.typed`, and uses `@overload` so
 `env.int("X")` is `int` and `env.int("X", None)` is `int | None` with no casts. Reach
 for it when you want typed environment access and a deploy-time check without adding a
 settings framework to the project.

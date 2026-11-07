@@ -107,4 +107,4 @@ def resolve(annotation: Any, separator: str) -> tuple[Parser, str]:
             item, item_name = SCALARS[args[0]]
             kind: Callable[[list[Any]], Any] = list if origin is list else tuple
             return split_parser(item, separator, kind), f"{origin.__name__}[{item_name}]"
-    raise TypeError(f"typedenv cannot read a field annotated {annotation!r} from a string")
+    raise TypeError(f"envread cannot read a field annotated {annotation!r} from a string")

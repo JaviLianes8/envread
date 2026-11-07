@@ -7,7 +7,7 @@ from dataclasses import dataclass
 import pytest
 from procs import run_cli
 
-from typedenv import Env, EnvValidationError, InvalidEnvError, load, var
+from envread import Env, EnvValidationError, InvalidEnvError, load, var
 
 
 @pytest.mark.parametrize("raw", ["1" * 5000, "[" * 100000], ids=["huge-int", "deep-nesting"])

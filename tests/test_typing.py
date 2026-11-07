@@ -16,7 +16,7 @@ from pathlib import Path
 
 from typing_extensions import assert_type
 
-from typedenv import Env, Secret, load
+from envread import Env, Secret, load
 
 _env = Env(source={})
 

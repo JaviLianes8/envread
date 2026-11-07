@@ -1,4 +1,4 @@
-"""Read the plain-text spec format used by the ``typedenv check`` command.
+"""Read the plain-text spec format used by the ``envread check`` command.
 
 One variable per line: ``NAME TYPE [optional] [secret]``. Blank lines and lines
 starting with ``#`` are ignored. TYPE is one of ``str int float bool decimal path

@@ -1,4 +1,4 @@
-"""The ``typedenv`` command: validate a spec against the environment, or read one value."""
+"""The ``envread`` command: validate a spec against the environment, or read one value."""
 
 from __future__ import annotations
 
@@ -23,12 +23,12 @@ from ._version import __version__
 
 EPILOG = """\
 examples:
-  typedenv check env.spec                     validate every variable in a spec file
-  typedenv check myapp.settings:Settings      validate the fields of a dataclass
-  typedenv check env.spec --env-file .env     layer a .env file under the environment
-  typedenv check env.spec --format json       machine-readable report
-  typedenv get PORT --type int --default 8080 print one parsed value
-  typedenv get DEBUG --type bool              prints true or false
+  envread check env.spec                     validate every variable in a spec file
+  envread check myapp.settings:Settings      validate the fields of a dataclass
+  envread check env.spec --env-file .env     layer a .env file under the environment
+  envread check env.spec --format json       machine-readable report
+  envread get PORT --type int --default 8080 print one parsed value
+  envread get DEBUG --type bool              prints true or false
 
 spec file format (one variable per line, # starts a comment):
   DATABASE_URL  secret
@@ -59,12 +59,12 @@ def _common(parser: argparse.ArgumentParser) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = _Parser(
-        prog="typedenv",
+        prog="envread",
         description="Validate and read typed environment variables.",
         epilog=EPILOG,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument("--version", action="version", version=f"typedenv {__version__}")
+    parser.add_argument("--version", action="version", version=f"envread {__version__}")
     commands = parser.add_subparsers(dest="command", required=True, parser_class=_Parser)
     check = commands.add_parser(
         "check",
@@ -121,7 +121,7 @@ def _check(args: argparse.Namespace) -> int:
         if report:
             print(report)
         if args.format == "text":
-            print(f"typedenv: {summary(outcomes)}", file=sys.stderr if failed else sys.stdout)
+            print(f"envread: {summary(outcomes)}", file=sys.stderr if failed else sys.stdout)
     return 1 if failed else 0
 
 
@@ -144,7 +144,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         return _check(args) if args.command == "check" else _get(args)
     except (EnvError, SpecError, TypeError, ImportError, AttributeError, OSError) as exc:
-        print(f"typedenv: {exc}", file=sys.stderr)
+        print(f"envread: {exc}", file=sys.stderr)
         return 1
 
 

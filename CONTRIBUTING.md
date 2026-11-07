@@ -10,7 +10,7 @@ pip install -r requirements-dev.txt
 
 ## Before you open a pull request
 
-- Keep public API in `src/typedenv/__init__.py`; internals live in `_`-prefixed modules.
+- Keep public API in `src/envread/__init__.py`; internals live in `_`-prefixed modules.
 - Add a test for the behaviour you change, and extend `tests/test_contract.py` when the
   public API changes. Behaviour that depends on the operating system is tested in real
   child processes with a crafted `env=` (see `tests/procs.py`), not with mocks.

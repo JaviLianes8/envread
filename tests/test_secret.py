@@ -7,7 +7,7 @@ import pickle
 
 import pytest
 
-from typedenv import Secret
+from envread import Secret
 
 
 def test_every_text_form_is_masked() -> None:

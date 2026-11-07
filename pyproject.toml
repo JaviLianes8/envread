@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "typedenv"
+name = "envread"
 version = "0.2.0"
 description = "Typed reader for environment variables: inferred return types, settings dataclasses, .env files and a checker CLI, zero dependencies"
 readme = "README.md"
@@ -33,7 +33,7 @@ dependencies = []
 dev = ["ruff", "mypy", "pytest", "build", "twine", "typing_extensions", "python-dotenv"]
 
 [project.scripts]
-typedenv = "typedenv._cli:main"
+envread = "envread._cli:main"
 
 [project.urls]
 Homepage = "https://lianes8studio.com"
@@ -44,7 +44,7 @@ LinkedIn = "https://www.linkedin.com/in/jlianes/"
 Funding = "https://buymeacoffee.com/jlianesglrs"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/typedenv"]
+packages = ["src/envread"]
 
 [tool.ruff]
 line-length = 100
@@ -55,7 +55,7 @@ select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
 
 [tool.ruff.lint.flake8-bugbear]
 # var() returns a dataclasses.field(), like field() itself.
-extend-immutable-calls = ["typedenv.var"]
+extend-immutable-calls = ["envread.var"]
 
 [tool.mypy]
 python_version = "3.10"

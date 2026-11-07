@@ -1,6 +1,6 @@
 """The public contract: one check per exported name, covering its whole promise.
 
-``CONTRACTS`` must name exactly ``typedenv.__all__``, so a new export cannot ship
+``CONTRACTS`` must name exactly ``envread.__all__``, so a new export cannot ship
 without a contract, and a removed one fails loudly.
 """
 
@@ -14,7 +14,7 @@ from pathlib import Path
 
 import pytest
 
-import typedenv as t
+import envread as t
 
 
 def _env() -> None:
@@ -186,7 +186,7 @@ def test_version_matches_the_project_metadata() -> None:
 
 
 def test_the_package_ships_type_information() -> None:
-    assert importlib.resources.files("typedenv").joinpath("py.typed").is_file()
+    assert importlib.resources.files("envread").joinpath("py.typed").is_file()
 
 
 def test_the_console_script_is_declared() -> None:
@@ -194,7 +194,7 @@ def test_the_console_script_is_declared() -> None:
 
     pyproject = Path(__file__).resolve().parent.parent / "pyproject.toml"
     scripts = tomllib.loads(pyproject.read_text(encoding="utf-8"))["project"]["scripts"]
-    assert scripts == {"typedenv": "typedenv._cli:main"}
-    from typedenv._cli import main
+    assert scripts == {"envread": "envread._cli:main"}
+    from envread._cli import main
 
     assert callable(main)

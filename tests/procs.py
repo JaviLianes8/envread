@@ -43,7 +43,7 @@ def run_python(
 def run_cli(
     env: Mapping[str, str], *args: str, cwd: Path | None = None
 ) -> subprocess.CompletedProcess[str]:
-    """Run ``python -m typedenv._cli`` from the source tree in a crafted environment."""
+    """Run ``python -m envread._cli`` from the source tree in a crafted environment."""
     return run_python(
-        "from typedenv._cli import main; raise SystemExit(main())", env, *args, cwd=cwd
+        "from envread._cli import main; raise SystemExit(main())", env, *args, cwd=cwd
     )

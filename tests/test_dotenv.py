@@ -9,9 +9,9 @@ from pathlib import Path
 
 import pytest
 
-from typedenv import DotenvError, load_dotenv, parse_dotenv, read_dotenv
+from envread import DotenvError, load_dotenv, parse_dotenv, read_dotenv
 
-# Every line here is inside the documented subset, so typedenv must agree exactly with
+# Every line here is inside the documented subset, so envread must agree exactly with
 # python-dotenv's dotenv_values on it (bare names, which python-dotenv maps to None,
 # are dropped from both sides).
 CORPUS = [

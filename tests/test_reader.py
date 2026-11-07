@@ -6,7 +6,7 @@ import os
 
 import pytest
 
-from typedenv import Env, InvalidEnvError, MissingEnvError
+from envread import Env, InvalidEnvError, MissingEnvError
 
 
 def test_prefix_is_prepended_to_every_name() -> None:
@@ -66,8 +66,8 @@ def test_raw_and_contains() -> None:
 def test_default_source_is_the_live_process_environment(monkeypatch: pytest.MonkeyPatch) -> None:
     reader = Env()
     assert reader.source is os.environ
-    monkeypatch.setenv("TYPEDENV_LIVE", "7")
-    assert reader.int("TYPEDENV_LIVE") == 7
+    monkeypatch.setenv("ENVREAD_LIVE", "7")
+    assert reader.int("ENVREAD_LIVE") == 7
 
 
 def test_repr_never_shows_values() -> None:

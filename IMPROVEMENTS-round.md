@@ -1,4 +1,4 @@
-# typedenv improvement round
+# envread improvement round
 
 A ranked list of substantial, coherent improvements for this round. Every item is
 additive: the 0.1 API (`Env`, `env`, the `str`/`int`/`float`/`bool`/`list`/`json`
@@ -46,11 +46,11 @@ deployment script.
    `APP_DB_HOST` from `host`; errors name the full variable, and `load()` honours the
    reader's prefix.
 
-7. **A deployment checker CLI.** `typedenv check env.spec` (or `module:Class` for a
+7. **A deployment checker CLI.** `envread check env.spec` (or `module:Class` for a
    dataclass) validates the current environment and prints one line per variable,
    exits 0 or 1, supports `--format json`, `--prefix`, `--env-file`,
    `--empty-is-unset`, `--quiet` and `--show-values` (secrets stay masked).
-   `typedenv get NAME --type int --default 8080` prints one canonical value for shell
+   `envread get NAME --type int --default 8080` prints one canonical value for shell
    scripts. Errors go to stderr with exit code 1.
 
 8. **`.env` loading as a documented subset.** `parse_dotenv`, `read_dotenv` and
@@ -76,7 +76,7 @@ deployment script.
 12. **Ground-truth tests.** A contract test pins the complete promise of every public
     name; real-process tests run child interpreters with a crafted `env=`; an end to end
     test builds the wheel, installs it into a throwaway virtual environment and drives
-    the installed `typedenv` script.
+    the installed `envread` script.
 
 ## Deliberately left out
 

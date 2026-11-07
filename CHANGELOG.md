@@ -6,6 +6,8 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+- Renamed the distribution, import package and command to `envread` (the old name is not available on PyPI).
+
 ## [0.2.0]
 
 ### Added
@@ -32,7 +34,7 @@ All notable changes to this project are documented here. The format follows
   `read_dotenv` and `load_dotenv(path, override=False)`, raising `DotenvError` (file and
   line, never the value) for anything outside the subset. On Windows, `load_dotenv`
   refuses entries longer than the 32,767 characters the process environment accepts.
-- `typedenv` command (also `python -m typedenv`): `check` validates a spec file or a
+- `envread` command (also `python -m envread`): `check` validates a spec file or a
   `module:Class` dataclass against the environment with text or JSON output, and `get`
   prints one parsed value. Both take `--prefix`, `--env-file` and `--empty-is-unset`.
 - `InvalidEnvError` gains `reason`, `secret`, `detail` and `masked()`.

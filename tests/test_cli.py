@@ -1,4 +1,4 @@
-"""The typedenv command, run in real child processes with crafted environments."""
+"""The envread command, run in real child processes with crafted environments."""
 
 from __future__ import annotations
 
@@ -109,7 +109,7 @@ def test_check_empty_is_unset(spec: Path) -> None:
 def test_check_a_dataclass_by_import_path(tmp_path: Path) -> None:
     (tmp_path / "appsettings.py").write_text(
         "from dataclasses import dataclass\n"
-        "from typedenv import Secret\n"
+        "from envread import Secret\n"
         "@dataclass\n"
         "class Settings:\n"
         "    token: Secret\n"
@@ -186,13 +186,13 @@ def test_bad_spec_line_is_named(tmp_path: Path) -> None:
 def test_help_has_runnable_examples() -> None:
     result = run_cli({}, "--help")
     assert result.returncode == 0
-    assert "typedenv check env.spec" in result.stdout
-    assert "typedenv get PORT --type int --default 8080" in result.stdout
+    assert "envread check env.spec" in result.stdout
+    assert "envread get PORT --type int --default 8080" in result.stdout
 
 
 def test_python_dash_m_runs_the_same_command() -> None:
     result = run_python(
-        "import runpy; runpy.run_module('typedenv', run_name='__main__')", {}, "--version"
+        "import runpy; runpy.run_module('envread', run_name='__main__')", {}, "--version"
     )
     assert result.returncode == 0
-    assert result.stdout.strip().startswith("typedenv ")
+    assert result.stdout.strip().startswith("envread ")

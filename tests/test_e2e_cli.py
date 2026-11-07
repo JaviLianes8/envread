@@ -2,7 +2,7 @@
 
 No mocks and no source tree on the path. The wheel is built from the project, pip
 installs it (offline, it has no dependencies) into a fresh virtual environment, and
-the installed ``typedenv`` executable is driven over subprocess with crafted
+the installed ``envread`` executable is driven over subprocess with crafted
 environments.
 """
 
@@ -38,7 +38,7 @@ def installed(tmp_path_factory: pytest.TempPathFactory) -> Path:
         capture_output=True,
         timeout=600,
     )
-    wheels = list(dist.glob("typedenv-*.whl"))
+    wheels = list(dist.glob("envread-*.whl"))
     assert len(wheels) == 1, wheels
     env_dir = tmp_path_factory.mktemp("venv")
     venv.create(env_dir, with_pip=True)
@@ -60,7 +60,7 @@ def _run(
     installed: Path, env: Mapping[str, str], *args: str, cwd: Path | None = None
 ) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
-        [str(_bin(installed, "typedenv")), *args],
+        [str(_bin(installed, "envread")), *args],
         env=_env(env),
         capture_output=True,
         text=True,
@@ -71,10 +71,10 @@ def _run(
 
 
 def test_the_wheel_installs_the_console_script(installed: Path) -> None:
-    assert _bin(installed, "typedenv").is_file()
+    assert _bin(installed, "envread").is_file()
     result = _run(installed, {}, "--version")
     assert result.returncode == 0
-    assert result.stdout.strip() == "typedenv 0.2.0"
+    assert result.stdout.strip() == "envread 0.2.0"
 
 
 def test_installed_check_passes_and_fails_on_real_environments(
@@ -137,8 +137,8 @@ def test_installed_get_error_is_on_stderr(installed: Path) -> None:
 
 def test_installed_library_reads_a_crafted_environment(installed: Path) -> None:
     code = (
-        "import typedenv; from typedenv import env\n"
-        "print(typedenv.__version__, env.int('PORT'), env.secret('TOKEN'))"
+        "import envread; from envread import env\n"
+        "print(envread.__version__, env.int('PORT'), env.secret('TOKEN'))"
     )
     result = subprocess.run(
         [str(_bin(installed, "python")), "-c", code],

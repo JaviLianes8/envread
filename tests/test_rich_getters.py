@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from typedenv import Env, InvalidEnvError, MissingEnvError, Secret
+from envread import Env, InvalidEnvError, MissingEnvError, Secret
 
 
 class Level(enum.Enum):

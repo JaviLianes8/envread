@@ -11,7 +11,7 @@ from typing import Any, Literal, Optional
 
 import pytest
 
-from typedenv import (
+from envread import (
     Env,
     EnvValidationError,
     InvalidEnvError,
@@ -150,10 +150,10 @@ def test_list_items_are_parsed_and_errors_name_the_variable() -> None:
 def test_uses_the_process_environment_by_default(monkeypatch: pytest.MonkeyPatch) -> None:
     @dataclass
     class One:
-        typedenv_probe: int
+        envread_probe: int
 
-    monkeypatch.setenv("TYPEDENV_PROBE", "5")
-    assert load(One).typedenv_probe == 5
+    monkeypatch.setenv("ENVREAD_PROBE", "5")
+    assert load(One).envread_probe == 5
 
 
 def test_init_false_fields_are_skipped() -> None:

@@ -14,7 +14,7 @@ from ._secret import Secret
 from ._types import resolve, unwrap_optional
 
 T = TypeVar("T")
-_KEY = "typedenv"
+_KEY = "envread"
 
 
 @dataclasses.dataclass(frozen=True)

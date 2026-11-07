@@ -71,7 +71,7 @@ class InvalidEnvError(EnvError, ValueError):
 class EnvValidationError(EnvError, ValueError):
     """Several variables failed at once; ``errors`` holds every one of them.
 
-    Raised by :func:`typedenv.load` after it has read every field, so a single run
+    Raised by :func:`envread.load` after it has read every field, so a single run
     reports all missing and invalid variables instead of stopping at the first.
     """
 

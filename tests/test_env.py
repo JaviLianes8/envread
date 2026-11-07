@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from typedenv import Env, InvalidEnvError, MissingEnvError
+from envread import Env, InvalidEnvError, MissingEnvError
 
 
 def make_env(**values: str) -> Env:
@@ -118,7 +118,7 @@ def test_invalid_error_is_a_value_error() -> None:
 def test_the_module_level_env_reads_the_real_environment(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    from typedenv import env
+    from envread import env
 
-    monkeypatch.setenv("TYPEDENV_SAMPLE", "42")
-    assert env.int("TYPEDENV_SAMPLE") == 42
+    monkeypatch.setenv("ENVREAD_SAMPLE", "42")
+    assert env.int("ENVREAD_SAMPLE") == 42
